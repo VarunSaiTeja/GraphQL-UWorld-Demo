@@ -1,0 +1,103 @@
+﻿@page "/"
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+<ul>
+    @foreach (var school in schools)
+    {
+        <li>@school.SchoolName</li>
+    }
+
+    @foreach (var userGroup in userGroups)
+    {
+        <li>@userGroup.Item2 has been added to @userGroup.Item1</li>
+    }
+</ul>
+
+@code{
+    public class School
+    {
+        public int SchoolId { get; set; }
+        public string SchoolName { get; set; }
+    }
+
+    public class SchoolResposne
+    {
+        public List<School> Schools;
+    }
+
+
+    public class UserAddedResult
+    {
+        public Onuseraddedtogroup onUserAddedToGroup { get; set; }
+    }
+
+    public class Onuseraddedtogroup
+    {
+        public Group group { get; set; }
+        public User user { get; set; }
+    }
+
+    public class Group
+    {
+        public string groupName { get; set; }
+    }
+
+    public class User
+    {
+        public string firstName { get; set; }
+    }
+
+    public List<(string, string)> userGroups = new List<(string, string)>();
+
+    GraphQLHttpClient Client = new GraphQLHttpClient("http://localhost:5000/graphql", new NewtonsoftJsonSerializer());
+    List<School> schools = new List<School>();
+    protected override async Task OnInitializedAsync()
+    {
+        base.OnInitialized();
+
+        var heroRequest = new GraphQLRequest
+        {
+            Query = @"query($id:Int!){
+                        schools(where:{parentSchoolId:{eq:$id}}){
+                            schoolId,
+                            schoolName
+                        }
+                    }",
+
+            Variables = new
+            {
+                id = 1
+            }
+        };
+
+        var response = await Client.SendQueryAsync<SchoolResposne>(heroRequest);
+        schools = response.Data.Schools;
+        StateHasChanged();
+
+        var userJoinedRequest = new GraphQLRequest
+        {
+            Query = @"subscription($id:Int!){
+                        onUserAddedToGroup(groupId:$id){
+                            group{
+                            groupName,
+                            },
+                            user{
+                            firstName
+                            }
+                        }
+                    }",
+            Variables=new {id=1}
+        };
+        IObservable <GraphQLResponse<UserAddedResult>> subscriptionStream = Client.CreateSubscriptionStream<UserAddedResult>(userJoinedRequest);
+        
+        var subscription = subscriptionStream.Subscribe(response =>
+        {
+            userGroups.Add((response.Data.onUserAddedToGroup.group.groupName,response.Data.onUserAddedToGroup.user.firstName));
+            StateHasChanged();
+        });
+    }
+}
