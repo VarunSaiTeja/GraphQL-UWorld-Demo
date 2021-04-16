@@ -1,0 +1,21 @@
+GraphQL Official Site
+https://graphql.org/
+
+HotChocolate Docs
+https://chillicream.com/docs/hotchocolate/v10
+
+HotChocolate WorkShop
+https://github.com/ChilliCream/graphql-workshop
+
+GraphQL Voyager/Map
+https://github.com/APIs-guru/graphql-voyager
+
+GraphQL Altair Playground
+https://altair.sirmuel.design/
+
+GraphQL Argument Validator
+https://github.com/VarunSaiTeja/Graph.ArgumentValidator
+
+GraphQL Short Demo of Implementation
+https://www.youtube.com/watch?v=HuN94qNwQmM
+
