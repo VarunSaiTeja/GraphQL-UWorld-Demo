@@ -111,11 +111,10 @@ namespace LearnGQL
                 endpoints.MapGraphQL();
             });
 
-            app.UseGraphQLVoyager(new GraphQLVoyagerOptions
+            app.UseGraphQLVoyager(new VoyagerOptions
             {
-                GraphQLEndPoint = "/graphql",
-                Path = "/graphql-map"
-            });
+                GraphQLEndPoint = "/graphql"
+            }, "/graphql-map");
         }
     }
 }
