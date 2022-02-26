@@ -1,9 +1,12 @@
 ﻿using HotChocolate;
 using HotChocolate.AspNetCore.Authorization;
 using HotChocolate.Data;
+using HotChocolate.Types;
+using LearnGQL.Data;
 using LearnGQL.DTO;
-using LearnGQL.GraphQL.Data;
-using LearnGQL.GraphQL.Models;
+using LearnGQL.Entities;
+using LearnGQL.GraphQL.DataLoaders;
+using LearnGQL.GraphQL.ExtendType;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -13,6 +16,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace LearnGQL.GraphQL
 {
@@ -81,6 +85,7 @@ namespace LearnGQL.GraphQL
         }
 
         [UseDbContext(typeof(AppDbContext))]
+        [UseOffsetPaging(IncludeTotalCount = true)]
         [UseProjection]
         [UseFiltering]
         [UseSorting]
@@ -90,6 +95,26 @@ namespace LearnGQL.GraphQL
         }
 
         [UseDbContext(typeof(AppDbContext))]
+        public async Task<UserGroupInfo> GetUserGroupCount(int userId, UserGroupCountBatchDataLoader loader)
+        {
+            return await loader.LoadAsync(userId);
+        }
+
+        [UseDbContext(typeof(AppDbContext))]
+        public async Task<IQueryable<UserWithGroupInfo>> UserWithGroupInfos([ScopedService] AppDbContext dbContext)
+        {
+            return dbContext.Users.Select(x => new UserWithGroupInfo
+            (x,
+                new UserGroupInfo
+                (
+                    dbContext.UserGroups.Count(ug => ug.UserId == x.UserId),
+                    dbContext.UserGroups.Where(ug => ug.UserId == x.UserId).Max(x => x.GroupId)
+                )
+            ));
+        }
+
+        [UseDbContext(typeof(AppDbContext))]
+        [UsePaging(IncludeTotalCount = true)]
         [UseProjection]
         [UseFiltering]
         [UseSorting]

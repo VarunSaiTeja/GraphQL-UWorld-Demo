@@ -1,7 +1,7 @@
 ﻿using HotChocolate.AspNetCore.Authorization;
 using System.Collections.Generic;
 
-namespace LearnGQL.GraphQL.Models
+namespace LearnGQL.Entities
 {
     public class Course : BaseDataModel
     {

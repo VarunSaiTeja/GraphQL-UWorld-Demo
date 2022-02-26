@@ -1,7 +1,7 @@
-﻿using LearnGQL.GraphQL.Models;
+﻿using LearnGQL.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace LearnGQL.GraphQL.Data
+namespace LearnGQL.Data
 {
     public class IdentityDbContext : DbContext
     {

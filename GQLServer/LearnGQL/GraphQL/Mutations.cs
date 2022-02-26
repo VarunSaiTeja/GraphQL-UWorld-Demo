@@ -1,8 +1,8 @@
 ﻿using HotChocolate;
 using HotChocolate.Data;
 using HotChocolate.Subscriptions;
-using LearnGQL.GraphQL.Data;
-using LearnGQL.GraphQL.Models;
+using LearnGQL.Data;
+using LearnGQL.Entities;
 using System.Threading;
 using System.Threading.Tasks;
 

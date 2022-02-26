@@ -1,8 +1,9 @@
 ﻿using HotChocolate.Data;
+using LearnGQL.GraphQL;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace LearnGQL.GraphQL.Models
+namespace LearnGQL.Entities
 {
     public class User
     {

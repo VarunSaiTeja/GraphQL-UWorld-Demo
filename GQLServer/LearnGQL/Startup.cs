@@ -1,7 +1,9 @@
 using Graph.ArgumentValidator;
 using GraphQL.Server.Ui.Voyager;
+using LearnGQL.Data;
 using LearnGQL.GraphQL;
-using LearnGQL.GraphQL.Data;
+using LearnGQL.GraphQL.DataLoaders;
+using LearnGQL.GraphQL.ExtendType;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -41,6 +43,8 @@ namespace LearnGQL
                 .AddProjections()
                 .AddAuthorization()
                 .AddQueryType<Queries>()
+                .AddTypeExtension<UserExtend>()
+                .AddDataLoader<UserGroupCountBatchDataLoader>()
                 .AddMutationType<Mutations>()
                 .AddInMemorySubscriptions()
                 .AddSubscriptionType<Subscriptions>();

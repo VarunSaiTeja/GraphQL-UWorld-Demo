@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace LearnGQL.GraphQL.Models
+namespace LearnGQL.Entities
 {
     public class UserGroup
     {

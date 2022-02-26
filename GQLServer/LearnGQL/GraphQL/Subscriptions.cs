@@ -1,9 +1,8 @@
 ﻿using HotChocolate;
-using HotChocolate.AspNetCore.Authorization;
 using HotChocolate.Execution;
 using HotChocolate.Subscriptions;
 using HotChocolate.Types;
-using LearnGQL.GraphQL.Models;
+using LearnGQL.Entities;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading;
@@ -27,7 +26,7 @@ namespace LearnGQL.GraphQL
         }
 
         [SubscribeAndResolve]
-        [Authorize]
+        //[Authorize]
         public async IAsyncEnumerable<string> OnMessageAsync([GlobalState("ClaimsPrincipal")] ClaimsPrincipal User)
         {
             yield return "Hey Hello!";

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LearnGQL.GraphQL.Models
+namespace LearnGQL.Entities
 {
     public class BaseDataModel
     {
