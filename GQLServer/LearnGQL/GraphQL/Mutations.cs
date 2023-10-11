@@ -27,8 +27,8 @@ namespace LearnGQL.GraphQL
             dbContext.UserGroups.Add(userGroup);
             await dbContext.SaveChangesAsync(cancellationToken);
 
-            await dbContext.Entry(userGroup).Reference(x => x.User).LoadAsync(cancellationToken);
-            await dbContext.Entry(userGroup).Reference(x => x.Group).LoadAsync(cancellationToken);
+            await dbContext.Entry(userGroup).Reference(x => x.User).LoadAsync(cancellationToken:cancellationToken);
+            await dbContext.Entry(userGroup).Reference(x => x.Group).LoadAsync(cancellationToken:cancellationToken);
 
             //await eventSender.SendAsync(nameof(Subscriptions.OnUserAddedToGroup), userGroup, cancellationToken);
             await eventSender.SendAsync(nameof(Subscriptions.OnUserAddedToGroup) + "-" + groupId, userGroup, cancellationToken);

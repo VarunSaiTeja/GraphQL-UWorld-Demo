@@ -43,7 +43,7 @@ namespace LearnGQL.GraphQL
             int groupId,
             [Service] ITopicEventReceiver eventReceiver,
             CancellationToken cancellationToken) =>
-            await eventReceiver.SubscribeAsync<string, UserGroup>(
+            await eventReceiver.SubscribeAsync<UserGroup>(
                 nameof(OnUserAddedToGroup) + "-" + groupId, cancellationToken);
     }
 }

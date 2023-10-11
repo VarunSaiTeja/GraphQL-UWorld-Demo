@@ -8,7 +8,7 @@ namespace LearnGQL.GraphQL
 {
     public class IdentityResolver : ObjectFieldDescriptorAttribute
     {
-        public override void OnConfigure(IDescriptorContext context, IObjectFieldDescriptor descriptor, MemberInfo member)
+        protected override void OnConfigure(IDescriptorContext context, IObjectFieldDescriptor descriptor, MemberInfo member)
         {
 
             descriptor.Resolve(ctx =>

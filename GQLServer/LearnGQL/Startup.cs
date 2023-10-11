@@ -1,4 +1,3 @@
-using Graph.ArgumentValidator;
 using GraphQL.Server.Ui.Voyager;
 using LearnGQL.Data;
 using LearnGQL.GraphQL;
@@ -37,7 +36,6 @@ namespace LearnGQL
             services.AddScoped<IdentityDbContext>();
             services.AddCors();
             services.AddGraphQLServer()
-                .AddArgumentValidator()
                 .AddFiltering()
                 .AddSorting()
                 .AddProjections()
@@ -115,10 +113,7 @@ namespace LearnGQL
                 endpoints.MapGraphQL();
             });
 
-            app.UseGraphQLVoyager(new VoyagerOptions
-            {
-                GraphQLEndPoint = "/graphql"
-            }, "/graphql-map");
+            app.UseGraphQLVoyager();
         }
     }
 }

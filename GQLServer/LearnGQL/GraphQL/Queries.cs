@@ -1,5 +1,5 @@
 ﻿using HotChocolate;
-using HotChocolate.AspNetCore.Authorization;
+using HotChocolate.Authorization;
 using HotChocolate.Data;
 using HotChocolate.Types;
 using LearnGQL.Data;
